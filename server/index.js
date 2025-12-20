@@ -1,7 +1,7 @@
-let express = require("express");
-let app = express();
-let cors = require("cors");
-let mongoose = require("mongoose");
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 const { enquiryRoutes } = require("./App/Models/Middleware/Routes/web/EnquiryRoutes");
@@ -20,18 +20,17 @@ app.use("/web/api/enquiry", enquiryRoutes);
 const DBURL = process.env.DBURL || "mongodb://127.0.0.1:27017/Portfolio";
 
 // Connect MongoDB and start server
-mongoose.connect(DBURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log("MongoDB connected:", DBURL);
-  app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server running on port ${process.env.PORT || 3000}`);
+mongoose.connect(DBURL)
+  .then(() => {
+    console.log("MongoDB connected:", DBURL);
+    app.listen(process.env.PORT || 3000, () => {
+      console.log(`Server running on port ${process.env.PORT || 3000}`);
+    });
+  })
+  .catch(err => {
+    console.log("MongoDB connection failed:", err);
+    // Still start server even if DB fails
+    app.listen(process.env.PORT || 3000, () => {
+      console.log(`Server running on port ${process.env.PORT || 3000} (DB not connected)`);
+    });
   });
-}).catch(err => {
-  console.log("MongoDB connection failed:", err);
-  // Still start server
-  app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server running on port ${process.env.PORT || 3000} (DB not connected)`);
-  });
-});
