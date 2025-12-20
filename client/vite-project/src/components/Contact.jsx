@@ -36,7 +36,7 @@ let [enquiryList, setEnquiryList] = useState([]);
         setIsSubmitting(false);
         setSubmitStatus('success');
     axios
-      .post("http://localhost:8000/web/api/enquiry/enquiry-insert", formData)
+      .post("https://sanju-portfolio-server-4ybz.onrender.com/web/api/enquiry/enquiry-insert", formData)
       .then((res) => {
        
         toast.success("Message Sent!!!");
@@ -50,7 +50,7 @@ let [enquiryList, setEnquiryList] = useState([]);
 
   let getAllEnquiries = () => {
     axios
-      .get("http://localhost:8000/web/api/enquiry/enquiry-view")
+      .get("https://sanju-portfolio-server-4ybz.onrender.com/web/api/enquiry/enquiry-view")
       .then((res) => {
         if (res.data.status === 1) {
           setEnquiryList(res.data.enquiryList);
