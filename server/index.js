@@ -1,45 +1,37 @@
-let express=require("express");
-let path=require("path");
-let app=express();
-let cors=require('cors');
-require('dotenv').config();
-let mongoose=require("mongoose");
-const { enquiryRoutes } = require("./App/Models/Middleware/Routes/web/EnquiryRoutes");
+let express = require("express");
+let app = express();
+let cors = require("cors");
+let mongoose = require("mongoose");
+require("dotenv").config();
 
+const { enquiryRoutes } = require("./App/Models/Middleware/Routes/web/EnquiryRoutes");
 
 app.use(express.json());
 app.use(cors());
 
-const SECRET_KEY=process.env.JWT_SECRET;
-const expiresIn=process.env.TOKEN_EXPIRES_IN;
-const localLink="mongodb://127.0.0.1:27017/Portfolio";
-
-app.use("/web/api/enquiry",enquiryRoutes)
-mongoose.connect(process.env.DBURL).then(()=>{
-    console.log("Connected to MongoDb");
-    app.listen(process.env.PORT||3000,()=>{
-        console.log('Server is running...') 
-    })
-}).catch((err)=>{
-    console.log(err)
+// Root test route
+app.get("/", (req, res) => {
+  res.send("API is working!");
 });
 
+// API routes
+app.use("/web/api/enquiry", enquiryRoutes);
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.DBURL||localLink);
-    console.log("MongoDB connected :",process.env.DBURL);
-  } catch (err) {
-    console.log("MongoDB not connected. Skipping for now.",err);
-  }
-};
+const DBURL = process.env.DBURL || "mongodb://127.0.0.1:27017/Portfolio";
 
-// Connect DB but **server start hamesha karega**
-connectDB().finally(() => {
-  app.listen(process.env.PORT||3000, () => {
-    console.log(`Server running on port`);
+// Connect MongoDB and start server
+mongoose.connect(DBURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log("MongoDB connected:", DBURL);
+  app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server running on port ${process.env.PORT || 3000}`);
+  });
+}).catch(err => {
+  console.log("MongoDB connection failed:", err);
+  // Still start server
+  app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server running on port ${process.env.PORT || 3000} (DB not connected)`);
   });
 });
-
-
-//http://localhost:8000/web/api/enquiry/enquiry-view
