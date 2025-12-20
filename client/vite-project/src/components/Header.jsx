@@ -81,10 +81,10 @@ useState(false);
         opacity: 1,
       },
     };
-const downloadResume = () => {
+  const downloadResume = () => {
   const link = document.createElement('a');
-  link.href = '/resume.pdf'; // public folder mein rakhi hai agar
-  link.download = 'SANJU_SINGH_RESUME.pdf'; // Jo naam se download ho
+  link.href = '/resume.docx';  // .docx file ka exact naam
+  link.download = 'SANJU_SINGH_RESUME.docx'; // Download hone ka naam
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -155,8 +155,7 @@ transition-all shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40"
                 <motion.a
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  href="https://docs.google.com/document/d/1VdAiWXMrW-OW1jvfBBcRr8NW9avr5MsK/edit?usp=drive_link&ouid=118022450806232704539&rtpof=true&sd=true"
-                  onClick={downloadResume}
+                      onClick={downloadResume}
                   className="px-6 py-3 border border-gray-300 dark:border-gray-600 
                   hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg font-medium transition-all flex items-center gap-2 group"
                 >
