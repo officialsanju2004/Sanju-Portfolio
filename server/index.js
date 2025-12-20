@@ -37,7 +37,7 @@ const connectDB = async () => {
 // Connect DB but **server start hamesha karega**
 connectDB().finally(() => {
   app.listen(process.env.PORT||3000, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`Server running on port`);
   });
 });
 
