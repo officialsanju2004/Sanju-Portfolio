@@ -20,7 +20,7 @@ let enquiryInsert = async (req, res) => {
 
   await transporter.sendMail({
    from:email,
-   to: "godsanju21@gmail.com",
+   to: "bably1937@gmail.com",
    subject: "New Contact Form Submission",
    html: `
     <h3>New Message From Portfolio</h3>
