@@ -25,7 +25,7 @@ let enquiryInsert = async (req, res) => {
    to: "godsanju21@gmail.com",
    subject: "New Contact Form Submission",
    html: `
-    <h3>New Message from Portfolio</h3>
+    <h3>New Message From Portfolio</h3>
     <p><b>Name:</b> ${name}</p>
     <p><b>Email:</b> ${email}</p>
     <p><b>Message:</b> ${message}</p>
