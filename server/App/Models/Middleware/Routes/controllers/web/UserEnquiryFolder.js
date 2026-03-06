@@ -21,7 +21,7 @@ let enquiryInsert = async (req, res) => {
   });
 
   await transporter.sendMail({
-   from: process.env.EMAIL_USER,
+   from:email,
    to: "godsanju21@gmail.com",
    subject: "New Contact Form Submission",
    html: `
@@ -36,13 +36,14 @@ let enquiryInsert = async (req, res) => {
 
  } catch(err) {
   console.log("Email Error:", err);
+  res.send({ status:0, mess:"Data not saved Successfully",error:err });
  }
 
  let enquiry = new enquiryModel({ name, email, message });
 
  await enquiry.save();
 
- res.send({ status:1, mess:"Data Saved Successfully" });
+ 
 
 };
 
