@@ -35,7 +35,7 @@ let enquiryInsert = async (req, res) => {
   console.log("Email sent");
 
  } catch(err) {
-  console.log("Email error:", err);
+  console.log("Email Error:", err);
  }
 
  let enquiry = new enquiryModel({ name, email, message });
